@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Alavancagem - Ademicon Joinville </title>
+    <title>Simulador de Alavancagem - Ademicon Joinville</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff3333'%3E%3Cpath d='M16,6V4H8V6H2V8H4V20H20V8H22V6H16M10,6H14V6H10V6M18,18H6V8H18V18M15,10H17V12H15V10M15,13H17V15H15V13M12,10H14V12H12V10M12,13H14V15H12V13M9,10H11V12H9V10M9,13H11V15H9V13M12,16H17V17H12V16Z'/%3E%3C/svg%3E">
 
@@ -116,7 +116,7 @@
         .footer-pdf { display: none; }
 
         @media print {
-            @page { size: A4; margin: 1cm 1cm 4cm 1cm; }
+            @page { size: A4; margin: 1cm 1cm 4.5cm 1cm; }
             body { background: white; color: black; padding: 0; font-size: 10pt; }
             .main-container { max-width: 100%; border: none; box-shadow: none; background: white; padding: 0; }
             .no-print, .btn, .input-section { display: none !important; }
@@ -128,7 +128,7 @@
             .fase-title { color: black !important; font-size: 1em; }
             table { border: 1px solid black; }
             th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; font-weight: bold; padding: 5px; font-size: 9pt; }
-            td { border: 1px solid black; color: black; padding: 5px; font-size: 10pt; }
+            td { border: 1px solid black; color: black; }
             
             .liquido-label { color: black !important; font-weight: bold; font-size: 9pt; }
             .net-value-input { 
@@ -165,12 +165,12 @@
     <div class="header">
         <div class="logo-area">
             <svg class="logo-icon" viewBox="0 0 24 24"><path d="M16,6V4H8V6H2V8H4V20H20V8H22V6H16M10,6H14V6H10V6M18,18H6V8H18V18M15,10H17V12H15V10M15,13H17V15H15V13M12,10H14V12H12V10M12,13H14V15H12V13M9,10H11V12H9V10M9,13H11V15H9V13M12,16H17V17H12V16Z" /></svg>
-            <span class="logo-text">ADEMICON </span>
+            <span class="logo-text">ADEMICON</span>
         </div>
-        <div class="sub-text">Joinville - Simulação Financeira </div>
+        <div class="sub-text">Joinville - Simulação Financeira</div>
     </div>
 
-    <h1 class="main-title">PROJETO ALAVANCAGEM DE CRÉDITO [cite: 5]</h1>
+    <h1 class="main-title">PROJETO ALAVANCAGEM DE CRÉDITO</h1>
 
     <div class="input-section" id="setupSection">
         <div class="input-field">
@@ -194,8 +194,8 @@
         </div>
 
         <div class="summary-card">
-            <h3>RESUMO DA OPERAÇÃO [cite: 17]</h3>
-            <p style="font-size: 0.75em; margin-bottom: 10px; color: #aaa;">C.F. por tranche 1% a.m. + INCC a.a [cite: 18]</p>
+            <h3>RESUMO DA OPERAÇÃO</h3>
+            <p style="font-size: 0.75em; margin-bottom: 10px; color: #aaa;">C.F. por tranche 1% a.m. + INCC a.a</p>
             <div class="summary-flex">
                 <div class="summary-item"><label>Créditos Líquido:</label><span id="totalCredit">R$ 0,00</span></div>
                 <div class="summary-item"><label>Valor da Parcela:</label><span id="totalInstallment" style="color: #ff3333;">R$ 0,00</span></div>
@@ -207,11 +207,11 @@
         <div class="footer-pdf">
             <div class="footer-line"></div>
             <div class="manager-container">
-                <div class="manager-name">Anderson L. Marini [cite: 19]</div>
-                <div class="manager-title">Sócio gerente [cite: 20]</div>
-                <div class="manager-units">Unidade Joinville - América | Unidade SP - Jardins [cite: 21, 22]</div>
-                <div class="manager-phone">(41) 98802-8545 [cite: 23]</div>
-                <div class="manager-email">anderson.marini@licenciadoademicon.com.br [cite: 23]</div>
+                <div class="manager-name">Anderson L. Marini</div>
+                <div class="manager-title">Sócio gerente</div>
+                <div class="manager-units">Unidade Joinville - América | Unidade SP - Jardins</div>
+                <div class="manager-phone">(41) 98802-8545</div>
+                <div class="manager-email">anderson.marini@licenciadoademicon.com.br</div>
             </div>
         </div>
     </div>
@@ -240,8 +240,7 @@
 
     function adicionarFaseDados(credito, prazo) {
         const entrada = credito * 0.50;
-        const pmt = calcularPMT(credito - entrada, prazo, taxaJuros);
-        fases.push({ numero: fases.length + 1, credito: credito, entrada: entrada, parcela: pmt, taxa: credito * percentualTaxa, liquido: credito - entrada, prazo: prazo });
+        fases.push({ numero: fases.length + 1, credito, entrada, parcela: calcularPMT(credito - entrada, prazo, taxaJuros), taxa: credito * percentualTaxa, liquido: credito - entrada, prazo });
         renderizarFases();
     }
 
@@ -251,7 +250,6 @@
 
         fases.forEach((f, index) => {
             somaLiquidoResumo += f.liquido; somaParcelas += f.parcela; somaTaxas += f.taxa;
-
             const card = document.createElement('div'); card.className = 'fase-card';
             card.innerHTML = `<div class="fase-title">${f.numero}°Fase</div>
                 <table><thead><tr><th>Créditos</th><th>Entrada</th><th>Prazo</th><th>Parcela</th><th>Taxa Transf.</th></tr></thead>
@@ -276,6 +274,5 @@
 
     function resetar() { location.reload(); }
 </script>
-
 </body>
 </html>
