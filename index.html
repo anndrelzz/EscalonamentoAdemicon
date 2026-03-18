@@ -71,10 +71,11 @@
 
         .liquido-label { font-size: 0.95em; color: #eee; }
 
+        /* FUNDO PRETO, TEXTO BRANCO E SEM NEGRITO NO SITE */
         .net-value-input { 
-            background: #fff; 
+            background: #000; 
             border: 1px solid #ff3333; 
-            color: #000; 
+            color: #fff; 
             padding: 10px 15px; 
             border-radius: 4px; 
             width: 100%; 
@@ -113,31 +114,37 @@
         .footer-pdf { display: none; }
 
         @media print {
-            @page { size: A4; margin: 1cm 1cm 4.5cm 1cm; }
+            @page { size: A4; margin: 1cm 1cm 4cm 1cm; }
             body { background: white; color: black; padding: 0; font-size: 10pt; }
             .main-container { max-width: 100%; border: none; box-shadow: none; background: white; padding: 0; }
             .no-print, .btn, .input-section { display: none !important; }
-            .header { border-bottom: 2px solid #000; margin-bottom: 10px; }
+            .header { border-bottom: 2px solid #000; color: black; margin-bottom: 10px; }
             .logo-icon { fill: black; height: 35px; width: 35px; }
             .logo-text, .sub-text, h1.main-title { color: black !important; }
 
             .fase-card { background: white; border: none; border-bottom: 1px solid #ccc; padding: 5px 0; margin-bottom: 5px; page-break-inside: avoid; }
             .fase-title { color: black !important; font-size: 1em; }
             table { border: 1px solid black; }
-            th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; }
-            td { border: 1px solid black; color: black; }
+            th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; font-weight: bold; padding: 5px; font-size: 9pt; }
+            td { border: 1px solid black; color: black; padding: 5px; font-size: 10pt; }
             
+            /* NEGRITO MANTIDO APENAS NO PDF */
             .liquido-label { color: black !important; font-weight: bold; font-size: 9pt; }
             .net-value-input { 
                 border: 1px solid #000; 
                 background: #f9f9f9; 
-                font-weight: 900 !important; 
+                color: #000 !important; 
                 text-align: right; 
-                width: 100%;
+                width: 100%; 
+                font-size: 10pt; 
+                padding: 3px 8px; 
+                font-weight: 900 !important;
             }
 
-            .summary-card { border: 1px solid black; background: white; color: black; margin-top: 15px; padding: 10px; }
-            .summary-item span { color: black !important; }
+            .summary-card { border: 1px solid black; background: white; color: black; margin-top: 15px; padding: 10px; page-break-inside: avoid; }
+            .summary-card h3 { font-size: 1.1em; border-bottom: 1px solid #000; }
+            .summary-item span { color: black !important; font-size: 1.2em; }
+            .summary-item label { color: #555 !important; font-size: 9pt; }
 
             .footer-pdf { 
                 display: block; position: fixed; bottom: 0; left: 0; width: 100%; background: white; 
@@ -145,9 +152,9 @@
             }
             .footer-line { border-top: 2px solid #cc0000; width: 100%; margin-bottom: 10px; }
             .manager-container { border-right: 3px solid #cc0000; padding-right: 15px; display: inline-block; }
-            .manager-name { font-weight: bold; font-size: 11pt; }
-            .manager-title, .manager-units, .manager-phone { font-weight: bold; font-size: 10pt; }
-            .manager-email { color: #0056b3; text-decoration: underline; font-size: 9pt; }
+            .manager-name { font-weight: bold; font-size: 11pt; color: #000; }
+            .manager-title, .manager-units, .manager-phone { font-weight: bold; font-size: 10pt; color: #000; margin-top: 2px; }
+            .manager-email { color: #0056b3; text-decoration: underline; font-size: 9pt; margin-top: 2px; }
         }
     </style>
 </head>
@@ -231,20 +238,19 @@
     function removerUltimaFase() { if(fases.length > 1) { fases.pop(); renderizarFases(); } }
 
     function adicionarFaseDados(credito, prazo) {
-        const entrada = credito * 0.5;
-        fases.push({ numero: fases.length+1, credito, entrada, parcela: calcularPMT(credito-entrada, prazo, taxaJuros), taxa: credito*percentualTaxa, liquido: credito-entrada, prazo });
+        const entrada = credito * 0.50;
+        const pmt = calcularPMT(credito - entrada, prazo, taxaJuros);
+        fases.push({ numero: fases.length + 1, credito: credito, entrada: entrada, parcela: pmt, taxa: credito * percentualTaxa, liquido: credito - entrada, prazo: prazo });
         renderizarFases();
     }
 
     function renderizarFases() {
         const container = document.getElementById('fasesContainer'); container.innerHTML = '';
-        let somaLiquidoResumo = 0, sParc = 0, sTax = 0;
-        
+        let somaLiquidoResumo = 0, somaParcelas = 0, somaTaxas = 0;
+
         fases.forEach((f, index) => {
-            somaLiquidoResumo += f.liquido; // Soma o valor líquido individual
-            sParc += f.parcela; 
-            sTax += f.taxa;
-            
+            somaLiquidoResumo += f.liquido; somaParcelas += f.parcela; somaTaxas += f.taxa;
+
             const card = document.createElement('div'); card.className = 'fase-card';
             card.innerHTML = `<div class="fase-title">${f.numero}°Fase</div>
                 <table><thead><tr><th>Créditos</th><th>Entrada</th><th>Prazo</th><th>Parcela</th><th>Taxa Transf.</th></tr></thead>
@@ -255,22 +261,20 @@
                 </div>`;
             container.appendChild(card);
         });
-        
+
         document.getElementById('totalCredit').innerText = "R$ " + formatarMoeda(somaLiquidoResumo);
-        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(sParc);
-        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(sTax);
+        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(somaParcelas);
+        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(somaTaxas);
     }
 
     function atualizarLiquido(index, valor) {
-        // Limpa a string da máscara de moeda para converter em número
         const num = parseFloat(valor.replace(/\./g, '').replace(',', '.'));
-        if (!isNaN(num)) { 
-            fases[index].liquido = num; 
-        }
+        if (!isNaN(num)) { fases[index].liquido = num; }
         renderizarFases();
     }
 
     function resetar() { location.reload(); }
 </script>
+
 </body>
 </html>
