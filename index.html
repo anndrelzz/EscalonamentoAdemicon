@@ -13,14 +13,14 @@
             background-attachment: fixed;
             color: #eee;
             min-height: 100vh;
-            padding: 10px;
+            padding: 15px;
         }
 
         .main-container {
             max-width: 1000px;
             margin: auto;
             background-color: rgba(20, 20, 20, 0.85);
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
             border: 1px solid #440000;
@@ -30,19 +30,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 1px solid #880000;
             padding-bottom: 10px;
         }
 
-        .logo-area { font-weight: bold; font-size: 1.2em; color: #fff; }
-        .sub-text { color: #ccc; font-size: 0.7em; text-transform: uppercase; }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 40px; height: 40px; fill: #ff3333; }
+        .logo-text { font-weight: bold; font-size: 1.4em; color: #fff; letter-spacing: 1px; }
+        .sub-text { color: #ccc; font-size: 0.8em; text-transform: uppercase; font-weight: bold; }
 
         h1.main-title {
             color: #ff3333;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.6em;
+            margin-bottom: 30px;
+            font-size: 1.8em;
             text-transform: uppercase;
         }
 
@@ -50,58 +52,35 @@
             background: rgba(40, 40, 40, 0.4);
             border: 1px solid #444;
             border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
 
-        .fase-title {
-            color: #ff3333;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 1em;
-        }
+        .fase-title { color: #ff3333; font-weight: bold; margin-bottom: 10px; font-size: 1.1em; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 8px;
-        }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        th { background: #2a2a2a; color: #fff; font-size: 0.75em; text-transform: uppercase; padding: 10px; text-align: left; border: 1px solid #444; }
+        td { padding: 12px 10px; border: 1px solid #333; font-size: 1em; }
 
-        th {
-            background: #2a2a2a;
-            color: #fff;
-            font-size: 0.7em;
-            text-transform: uppercase;
-            padding: 8px;
-            text-align: left;
-            border: 1px solid #444;
-        }
-
-        td {
-            padding: 10px 8px;
-            border: 1px solid #333;
-            font-size: 0.95em;
-        }
-
-        .liquido-label {
-            font-weight: bold;
-            font-size: 0.9em;
-            margin-top: 8px;
+        .liquido-container {
+            margin-top: 15px;
             display: flex;
-            align-items: center;
-            gap: 10px;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .net-value-input {
-            background: #fff;
-            border: 2px solid #ff3333;
-            color: #000;
-            padding: 5px 10px;
-            border-radius: 4px;
-            width: 180px;
-            text-align: right;
-            font-weight: 800;
-            font-size: 1em;
+        .liquido-label { font-size: 0.95em; color: #eee; }
+
+        .net-value-input { 
+            background: #fff; 
+            border: 1px solid #ff3333; 
+            color: #000; 
+            padding: 10px 15px; 
+            border-radius: 4px; 
+            width: 100%; 
+            text-align: right; 
+            font-weight: 400; 
+            font-size: 1.1em; 
         }
 
         .input-section {
@@ -109,108 +88,66 @@
             padding: 15px;
             border-radius: 8px;
             border: 1px solid #555;
-            margin-bottom: 15px;
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-            flex-wrap: wrap;
+            margin-bottom: 20px;
+            display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;
         }
 
-        .input-field { flex: 1; min-width: 150px; }
-        .input-field label { display: block; margin-bottom: 5px; font-size: 0.8em; color: #bbb; }
-        
-        input[type="number"], input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            background: #111;
-            border: 1px solid #444;
-            border-radius: 6px;
-            color: #fff;
-        }
+        .input-field { flex: 1; min-width: 180px; }
+        .input-field label { display: block; margin-bottom: 5px; font-size: 0.85em; color: #bbb; }
+        input[type="number"] { width: 100%; padding: 10px; background: #111; border: 1px solid #444; border-radius: 6px; color: #fff; }
 
-        .summary-card {
-            background: linear-gradient(180deg, #222 0%, #111 100%);
-            border: 2px solid #880000;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 15px;
-        }
+        .summary-card { background: linear-gradient(180deg, #222 0%, #111 100%); border: 2px solid #880000; padding: 20px; border-radius: 10px; margin-top: 20px; }
+        .summary-card h3 { color: #ff3333; margin-bottom: 10px; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        .summary-flex { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .summary-item { flex: 1; min-width: 150px; }
+        .summary-item label { font-size: 0.85em; color: #aaa; display: block; margin-bottom: 4px; }
+        .summary-item span { font-size: 1.4em; font-weight: bold; color: #fff; }
 
-        .summary-card h3 { color: #ff3333; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 5px; font-size: 1.1em; }
-        
-        .summary-flex {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .summary-item { flex: 1; min-width: 140px; }
-        .summary-item label { font-size: 0.8em; color: #aaa; display: block; }
-        .summary-item span { font-size: 1.2em; font-weight: bold; color: #fff; }
-
-        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.8em; }
+        .btn { padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.85em; }
         .btn-primary { background: #cc0000; color: #fff; }
         .btn-add { background: #28a745; color: white; }
         .btn-remove { background: #666; color: white; margin-left: 5px; }
-        .btn-outline { background: transparent; border: 1px solid #555; color: #ccc; margin-top: 10px; }
+        .btn-outline { background: transparent; border: 1px solid #555; color: #ccc; margin-top: 15px; }
 
         .hidden { display: none !important; }
         .footer-pdf { display: none; }
 
         @media print {
-            @page {
-                size: A4;
-                margin: 1cm 1cm 4cm 1cm;
-            }
-
-            body { background: white; color: black; padding: 0; font-size: 9pt; }
+            @page { size: A4; margin: 1cm 1cm 4.5cm 1cm; }
+            body { background: white; color: black; padding: 0; font-size: 10pt; }
             .main-container { max-width: 100%; border: none; box-shadow: none; background: white; padding: 0; }
             .no-print, .btn, .input-section { display: none !important; }
-            
-            .header { border-bottom: 2px solid #000; color: black; margin-bottom: 8px; }
-            .logo-area, .sub-text { color: black !important; }
-            h1.main-title { color: black !important; font-size: 1.3em; margin-bottom: 10px; }
+            .header { border-bottom: 2px solid #000; margin-bottom: 10px; }
+            .logo-icon { fill: black; height: 35px; width: 35px; }
+            .logo-text, .sub-text, h1.main-title { color: black !important; }
 
-            .fase-card { 
-                background: white; border: none; border-bottom: 1px solid #ccc; padding: 4px 0; margin-bottom: 4px; page-break-inside: avoid;
-            }
-
-            .fase-title { color: black !important; font-size: 10pt; }
-            table { background: white; border: 1px solid black; margin-bottom: 4px; }
-            th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; padding: 4px; font-size: 8pt; }
-            td { border: 1px solid black; color: black; padding: 4px; font-size: 9pt; }
+            .fase-card { background: white; border: none; border-bottom: 1px solid #ccc; padding: 5px 0; margin-bottom: 5px; page-break-inside: avoid; }
+            .fase-title { color: black !important; font-size: 1em; }
+            table { border: 1px solid black; }
+            th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; }
+            td { border: 1px solid black; color: black; }
             
-            .liquido-label { color: black !important; font-size: 8pt; }
+            .liquido-label { color: black !important; font-weight: bold; font-size: 9pt; }
             .net-value-input { 
-                border: 1px solid #000; background: #f9f9f9; color: #000 !important; 
-                width: 160px; font-size: 9pt; padding: 2px 5px; font-weight: 900;
+                border: 1px solid #000; 
+                background: #f9f9f9; 
+                font-weight: 900 !important; 
+                text-align: right; 
+                width: 100%;
             }
 
-            .summary-card { 
-                border: 1px solid black; background: white; color: black; margin-top: 10px; padding: 8px; page-break-inside: avoid;
-            }
-            .summary-card h3 { font-size: 10pt; border-bottom: 1px solid #000; }
-            .summary-item span { color: black !important; font-size: 11pt; }
-            .summary-item label { font-size: 8pt; }
+            .summary-card { border: 1px solid black; background: white; color: black; margin-top: 15px; padding: 10px; }
+            .summary-item span { color: black !important; }
 
             .footer-pdf { 
-                display: block;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background: white;
-                text-align: right;
-                padding-bottom: 20px;
+                display: block; position: fixed; bottom: 0; left: 0; width: 100%; background: white; 
+                text-align: right; padding-bottom: 30px; 
             }
-
-            .footer-line { border-top: 2px solid #cc0000; width: 100%; margin-bottom: 8px; }
-            .manager-container { border-right: 2px solid #cc0000; padding-right: 15px; display: inline-block; }
-            .manager-name { font-weight: bold; font-size: 10pt; color: #000; }
-            .manager-title, .manager-units, .manager-phone { font-weight: bold; font-size: 9pt; color: #000; margin-top: 1px; }
-            .manager-email { color: #0056b3; text-decoration: underline; font-size: 8pt; }
+            .footer-line { border-top: 2px solid #cc0000; width: 100%; margin-bottom: 10px; }
+            .manager-container { border-right: 3px solid #cc0000; padding-right: 15px; display: inline-block; }
+            .manager-name { font-weight: bold; font-size: 11pt; }
+            .manager-title, .manager-units, .manager-phone { font-weight: bold; font-size: 10pt; }
+            .manager-email { color: #0056b3; text-decoration: underline; font-size: 9pt; }
         }
     </style>
 </head>
@@ -218,7 +155,10 @@
 
 <div class="main-container">
     <div class="header">
-        <div class="logo-area">ADEMICON</div>
+        <div class="logo-area">
+            <svg class="logo-icon" viewBox="0 0 24 24"><path d="M16,6V4H8V6H2V8H4V20H20V8H22V6H16M10,6H14V6H10V6M18,18H6V8H18V18M15,10H17V12H15V10M15,13H17V15H15V13M12,10H14V12H12V10M12,13H14V15H12V13M9,10H11V12H9V10M9,13H11V15H9V13M12,16H17V17H12V16Z" /></svg>
+            <span class="logo-text">ADEMICON</span>
+        </div>
         <div class="sub-text">Joinville - Simulação Financeira</div>
     </div>
 
@@ -237,40 +177,22 @@
     </div>
 
     <div id="dashboard" class="content-layout hidden">
-        <div>
-            <div id="fasesContainer"></div>
-            
-            <div class="input-section no-print">
-                <div class="input-field">
-                    <label>Próximo Crédito (R$):</label>
-                    <input type="number" id="manualCredit" placeholder="Ex: 1400000">
-                </div>
-                <button class="btn btn-add" onclick="adicionarFaseManual()">+ Incluir Fase</button>
-                <button class="btn btn-remove" onclick="removerUltimaFase()">Remover Última</button>
-            </div>
-            
-            <button class="btn btn-outline no-print" onclick="resetar()">Reiniciar</button>
+        <div id="fasesContainer"></div>
+        
+        <div class="input-section no-print">
+            <input type="number" id="manualCredit" placeholder="Próximo Crédito (Ex: 1400000)" style="flex: 1; padding: 10px; background: #111; color: #fff; border: 1px solid #444; border-radius: 6px;">
+            <button class="btn btn-add" onclick="adicionarFaseManual()">+ Incluir Fase</button>
+            <button class="btn btn-remove" onclick="removerUltimaFase()">Remover Última</button>
         </div>
 
         <div class="summary-card">
             <h3>RESUMO DA OPERAÇÃO</h3>
-            <p style="font-size: 0.7em; margin-bottom: 8px; color: #aaa;">C.F. por tranche 1% a.m. + INCC a.a</p>
+            <p style="font-size: 0.75em; margin-bottom: 10px; color: #aaa;">C.F. por tranche 1% a.m. + INCC a.a</p>
             <div class="summary-flex">
-                <div class="summary-item">
-                    <label>Créditos Líquido:</label>
-                    <span id="totalCredit">R$ 0,00</span>
-                </div>
-                <div class="summary-item">
-                    <label>Valor da Parcela:</label>
-                    <span id="totalInstallment" style="color: #ff3333;">R$ 0,00</span>
-                </div>
-                <div class="summary-item">
-                    <label>Total de Taxas:</label>
-                    <span id="totalFees">R$ 0,00</span>
-                </div>
-                <div class="no-print">
-                    <button class="btn btn-primary" onclick="window.print()">Imprimir PDF</button>
-                </div>
+                <div class="summary-item"><label>Créditos Líquido:</label><span id="totalCredit">R$ 0,00</span></div>
+                <div class="summary-item"><label>Valor da Parcela:</label><span id="totalInstallment" style="color: #ff3333;">R$ 0,00</span></div>
+                <div class="summary-item"><label>Total de Taxas:</label><span id="totalFees">R$ 0,00</span></div>
+                <div class="no-print"><button class="btn btn-primary" onclick="window.print()">Imprimir PDF</button></div>
             </div>
         </div>
 
@@ -279,8 +201,7 @@
             <div class="manager-container">
                 <div class="manager-name">Anderson L. Marini</div>
                 <div class="manager-title">Sócio gerente</div>
-                <div class="manager-units">Unidade Joinville - América</div>
-                <div class="manager-units">Unidade SP - Jardins</div>
+                <div class="manager-units">Unidade Joinville - América | Unidade SP - Jardins</div>
                 <div class="manager-phone">(41) 98802-8545</div>
                 <div class="manager-email">anderson.marini@licenciadoademicon.com.br</div>
             </div>
@@ -290,110 +211,66 @@
 
 <script>
     let fases = [];
-    const taxaJuros = 0.01; 
-    const percentualTaxa = 0.0075;
-
-    function formatarMoeda(valor) {
-        return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
-
-    function calcularPMT(pv, n, i) {
-        if (pv <= 0) return 0;
-        return pv * (i / (1 - Math.pow(1 + i, -n)));
-    }
-
+    const taxaJuros = 0.01; const percentualTaxa = 0.0075;
+    function formatarMoeda(valor) { return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function calcularPMT(pv, n, i) { return pv > 0 ? pv * (i / (1 - Math.pow(1 + i, -n))) : 0; }
+    
     function iniciarSimulacao() {
         fases = [];
         const credito = parseFloat(document.getElementById('initCredit').value);
-        const prazo = parseInt(document.getElementById('initTerm').value);
-        if (isNaN(credito)) return;
-        adicionarFaseDados(credito, prazo);
+        adicionarFaseDados(credito, parseInt(document.getElementById('initTerm').value));
         document.getElementById('dashboard').classList.remove('hidden');
         document.getElementById('setupSection').classList.add('hidden');
     }
 
     function adicionarFaseManual() {
-        const novoCredito = parseFloat(document.getElementById('manualCredit').value);
-        if (isNaN(novoCredito)) return;
-        adicionarFaseDados(novoCredito, fases[0].prazo);
-        document.getElementById('manualCredit').value = ''; 
+        const nc = parseFloat(document.getElementById('manualCredit').value);
+        if(!isNaN(nc)){ adicionarFaseDados(nc, fases[0].prazo); document.getElementById('manualCredit').value = ''; }
     }
 
-    function removerUltimaFase() {
-        if (fases.length > 1) { fases.pop(); renderizarFases(); }
-    }
+    function removerUltimaFase() { if(fases.length > 1) { fases.pop(); renderizarFases(); } }
 
     function adicionarFaseDados(credito, prazo) {
-        const entrada = credito * 0.50;
-        // PV rigoroso: Crédito - Entrada
-        const pmt = calcularPMT(credito - entrada, prazo, taxaJuros);
-        fases.push({
-            numero: fases.length + 1,
-            credito: credito,
-            entrada: entrada,
-            parcela: pmt,
-            taxa: credito * percentualTaxa,
-            liquido: credito - entrada,
-            prazo: prazo
-        });
+        const entrada = credito * 0.5;
+        fases.push({ numero: fases.length+1, credito, entrada, parcela: calcularPMT(credito-entrada, prazo, taxaJuros), taxa: credito*percentualTaxa, liquido: credito-entrada, prazo });
         renderizarFases();
     }
 
     function renderizarFases() {
-        const container = document.getElementById('fasesContainer');
-        container.innerHTML = '';
-        let somaCredito = 0, somaParcelas = 0, somaTaxas = 0;
-
+        const container = document.getElementById('fasesContainer'); container.innerHTML = '';
+        let somaLiquidoResumo = 0, sParc = 0, sTax = 0;
+        
         fases.forEach((f, index) => {
-            somaCredito += f.credito;
-            somaParcelas += f.parcela;
-            somaTaxas += f.taxa;
-
-            const card = document.createElement('div');
-            card.className = 'fase-card';
-            card.innerHTML = `
-                <div class="fase-title">${f.numero}°Fase</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Créditos</th>
-                            <th>Entrada</th>
-                            <th>Prazo</th>
-                            <th>Parcela</th>
-                            <th>Taxa de Transferência</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>R$ ${formatarMoeda(f.credito)}</td>
-                            <td>R$ ${formatarMoeda(f.entrada)}</td>
-                            <td>${f.prazo}</td>
-                            <td>R$ ${formatarMoeda(f.parcela)}</td>
-                            <td>R$ ${formatarMoeda(f.taxa)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="liquido-label">
-                    *Valor liquido para utilizar R$
+            somaLiquidoResumo += f.liquido; // Soma o valor líquido individual
+            sParc += f.parcela; 
+            sTax += f.taxa;
+            
+            const card = document.createElement('div'); card.className = 'fase-card';
+            card.innerHTML = `<div class="fase-title">${f.numero}°Fase</div>
+                <table><thead><tr><th>Créditos</th><th>Entrada</th><th>Prazo</th><th>Parcela</th><th>Taxa Transf.</th></tr></thead>
+                <tbody><tr><td>R$ ${formatarMoeda(f.credito)}</td><td>R$ ${formatarMoeda(f.entrada)}</td><td>${f.prazo}</td><td>R$ ${formatarMoeda(f.parcela)}</td><td>R$ ${formatarMoeda(f.taxa)}</td></tr></tbody></table>
+                <div class="liquido-container">
+                    <span class="liquido-label">*Valor liquido para utilizar R$</span>
                     <input type="text" class="net-value-input" value="${formatarMoeda(f.liquido)}" onchange="atualizarLiquido(${index}, this.value)">
-                </div>
-            `;
+                </div>`;
             container.appendChild(card);
         });
-
-        document.getElementById('totalCredit').innerText = "R$ " + formatarMoeda(somaCredito);
-        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(somaParcelas);
-        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(somaTaxas);
+        
+        document.getElementById('totalCredit').innerText = "R$ " + formatarMoeda(somaLiquidoResumo);
+        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(sParc);
+        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(sTax);
     }
 
     function atualizarLiquido(index, valor) {
+        // Limpa a string da máscara de moeda para converter em número
         const num = parseFloat(valor.replace(/\./g, '').replace(',', '.'));
-        if (!isNaN(num)) { fases[index].liquido = num; }
+        if (!isNaN(num)) { 
+            fases[index].liquido = num; 
+        }
         renderizarFases();
     }
 
     function resetar() { location.reload(); }
 </script>
-
 </body>
 </html>
