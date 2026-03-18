@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Alavancagem - Ademicon Joinville</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #000000 0%, #330000 100%);
+            background-attachment: fixed;
+            color: #eee;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: rgba(20, 20, 20, 0.85);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            border: 1px solid #440000;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #880000;
+            padding-bottom: 10px;
+        }
+
+        .logo-area { font-weight: bold; font-size: 1.2em; color: #fff; }
+        .sub-text { color: #ccc; font-size: 0.7em; text-transform: uppercase; }
+
+        h1.main-title {
+            color: #ff3333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            text-transform: uppercase;
+        }
+
+        .fase-card {
+            background: rgba(40, 40, 40, 0.4);
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+
+        .fase-title {
+            color: #ff3333;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+
+        th {
+            background: #2a2a2a;
+            color: #fff;
+            font-size: 0.7em;
+            text-transform: uppercase;
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+
+        td {
+            padding: 10px 8px;
+            border: 1px solid #333;
+            font-size: 0.95em;
+        }
+
+        .liquido-label {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .net-value-input {
+            background: #fff;
+            border: 2px solid #ff3333;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 4px;
+            width: 180px;
+            text-align: right;
+            font-weight: 800;
+            font-size: 1em;
+        }
+
+        .input-section {
+            background: rgba(40, 40, 40, 0.6);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .input-field { flex: 1; min-width: 150px; }
+        .input-field label { display: block; margin-bottom: 5px; font-size: 0.8em; color: #bbb; }
+        
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            background: #111;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #fff;
+        }
+
+        .summary-card {
+            background: linear-gradient(180deg, #222 0%, #111 100%);
+            border: 2px solid #880000;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .summary-card h3 { color: #ff3333; margin-bottom: 8px; border-bottom: 1px solid #444; padding-bottom: 5px; font-size: 1.1em; }
+        
+        .summary-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .summary-item { flex: 1; min-width: 140px; }
+        .summary-item label { font-size: 0.8em; color: #aaa; display: block; }
+        .summary-item span { font-size: 1.2em; font-weight: bold; color: #fff; }
+
+        .btn { padding: 8px 16px; border-radius: 6px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.8em; }
+        .btn-primary { background: #cc0000; color: #fff; }
+        .btn-add { background: #28a745; color: white; }
+        .btn-remove { background: #666; color: white; margin-left: 5px; }
+        .btn-outline { background: transparent; border: 1px solid #555; color: #ccc; margin-top: 10px; }
+
+        .hidden { display: none !important; }
+        .footer-pdf { display: none; }
+
+        @media print {
+            @page {
+                size: A4;
+                margin: 1cm 1cm 4cm 1cm;
+            }
+
+            body { background: white; color: black; padding: 0; font-size: 9pt; }
+            .main-container { max-width: 100%; border: none; box-shadow: none; background: white; padding: 0; }
+            .no-print, .btn, .input-section { display: none !important; }
+            
+            .header { border-bottom: 2px solid #000; color: black; margin-bottom: 8px; }
+            .logo-area, .sub-text { color: black !important; }
+            h1.main-title { color: black !important; font-size: 1.3em; margin-bottom: 10px; }
+
+            .fase-card { 
+                background: white; border: none; border-bottom: 1px solid #ccc; padding: 4px 0; margin-bottom: 4px; page-break-inside: avoid;
+            }
+
+            .fase-title { color: black !important; font-size: 10pt; }
+            table { background: white; border: 1px solid black; margin-bottom: 4px; }
+            th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; padding: 4px; font-size: 8pt; }
+            td { border: 1px solid black; color: black; padding: 4px; font-size: 9pt; }
+            
+            .liquido-label { color: black !important; font-size: 8pt; }
+            .net-value-input { 
+                border: 1px solid #000; background: #f9f9f9; color: #000 !important; 
+                width: 160px; font-size: 9pt; padding: 2px 5px; font-weight: 900;
+            }
+
+            .summary-card { 
+                border: 1px solid black; background: white; color: black; margin-top: 10px; padding: 8px; page-break-inside: avoid;
+            }
+            .summary-card h3 { font-size: 10pt; border-bottom: 1px solid #000; }
+            .summary-item span { color: black !important; font-size: 11pt; }
+            .summary-item label { font-size: 8pt; }
+
+            .footer-pdf { 
+                display: block;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: white;
+                text-align: right;
+                padding-bottom: 20px;
+            }
+
+            .footer-line { border-top: 2px solid #cc0000; width: 100%; margin-bottom: 8px; }
+            .manager-container { border-right: 2px solid #cc0000; padding-right: 15px; display: inline-block; }
+            .manager-name { font-weight: bold; font-size: 10pt; color: #000; }
+            .manager-title, .manager-units, .manager-phone { font-weight: bold; font-size: 9pt; color: #000; margin-top: 1px; }
+            .manager-email { color: #0056b3; text-decoration: underline; font-size: 8pt; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="header">
+        <div class="logo-area">ADEMICON</div>
+        <div class="sub-text">Joinville - Simulação Financeira</div>
+    </div>
+
+    <h1 class="main-title">PROJETO ALAVANCAGEM DE CRÉDITO</h1>
+
+    <div class="input-section" id="setupSection">
+        <div class="input-field">
+            <label>Crédito 1ª Fase (R$):</label>
+            <input type="number" id="initCredit" value="700000">
+        </div>
+        <div class="input-field">
+            <label>Prazo Médio (Meses):</label>
+            <input type="number" id="initTerm" value="190">
+        </div>
+        <button class="btn btn-primary" onclick="iniciarSimulacao()">Gerar Proposta</button>
+    </div>
+
+    <div id="dashboard" class="content-layout hidden">
+        <div>
+            <div id="fasesContainer"></div>
+            
+            <div class="input-section no-print">
+                <div class="input-field">
+                    <label>Próximo Crédito (R$):</label>
+                    <input type="number" id="manualCredit" placeholder="Ex: 1400000">
+                </div>
+                <button class="btn btn-add" onclick="adicionarFaseManual()">+ Incluir Fase</button>
+                <button class="btn btn-remove" onclick="removerUltimaFase()">Remover Última</button>
+            </div>
+            
+            <button class="btn btn-outline no-print" onclick="resetar()">Reiniciar</button>
+        </div>
+
+        <div class="summary-card">
+            <h3>RESUMO DA OPERAÇÃO</h3>
+            <p style="font-size: 0.7em; margin-bottom: 8px; color: #aaa;">C.F. por tranche 1% a.m. + INCC a.a</p>
+            <div class="summary-flex">
+                <div class="summary-item">
+                    <label>Créditos Líquido:</label>
+                    <span id="totalCredit">R$ 0,00</span>
+                </div>
+                <div class="summary-item">
+                    <label>Valor da Parcela:</label>
+                    <span id="totalInstallment" style="color: #ff3333;">R$ 0,00</span>
+                </div>
+                <div class="summary-item">
+                    <label>Total de Taxas:</label>
+                    <span id="totalFees">R$ 0,00</span>
+                </div>
+                <div class="no-print">
+                    <button class="btn btn-primary" onclick="window.print()">Imprimir PDF</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-pdf">
+            <div class="footer-line"></div>
+            <div class="manager-container">
+                <div class="manager-name">Anderson L. Marini</div>
+                <div class="manager-title">Sócio gerente</div>
+                <div class="manager-units">Unidade Joinville - América</div>
+                <div class="manager-units">Unidade SP - Jardins</div>
+                <div class="manager-phone">(41) 98802-8545</div>
+                <div class="manager-email">anderson.marini@licenciadoademicon.com.br</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let fases = [];
+    const taxaJuros = 0.01; 
+    const percentualTaxa = 0.0075;
+
+    function formatarMoeda(valor) {
+        return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calcularPMT(pv, n, i) {
+        if (pv <= 0) return 0;
+        return pv * (i / (1 - Math.pow(1 + i, -n)));
+    }
+
+    function iniciarSimulacao() {
+        fases = [];
+        const credito = parseFloat(document.getElementById('initCredit').value);
+        const prazo = parseInt(document.getElementById('initTerm').value);
+        if (isNaN(credito)) return;
+        adicionarFaseDados(credito, prazo);
+        document.getElementById('dashboard').classList.remove('hidden');
+        document.getElementById('setupSection').classList.add('hidden');
+    }
+
+    function adicionarFaseManual() {
+        const novoCredito = parseFloat(document.getElementById('manualCredit').value);
+        if (isNaN(novoCredito)) return;
+        adicionarFaseDados(novoCredito, fases[0].prazo);
+        document.getElementById('manualCredit').value = ''; 
+    }
+
+    function removerUltimaFase() {
+        if (fases.length > 1) { fases.pop(); renderizarFases(); }
+    }
+
+    function adicionarFaseDados(credito, prazo) {
+        const entrada = credito * 0.50;
+        // PV rigoroso: Crédito - Entrada
+        const pmt = calcularPMT(credito - entrada, prazo, taxaJuros);
+        fases.push({
+            numero: fases.length + 1,
+            credito: credito,
+            entrada: entrada,
+            parcela: pmt,
+            taxa: credito * percentualTaxa,
+            liquido: credito - entrada,
+            prazo: prazo
+        });
+        renderizarFases();
+    }
+
+    function renderizarFases() {
+        const container = document.getElementById('fasesContainer');
+        container.innerHTML = '';
+        let somaCredito = 0, somaParcelas = 0, somaTaxas = 0;
+
+        fases.forEach((f, index) => {
+            somaCredito += f.credito;
+            somaParcelas += f.parcela;
+            somaTaxas += f.taxa;
+
+            const card = document.createElement('div');
+            card.className = 'fase-card';
+            card.innerHTML = `
+                <div class="fase-title">${f.numero}°Fase</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Créditos</th>
+                            <th>Entrada</th>
+                            <th>Prazo</th>
+                            <th>Parcela</th>
+                            <th>Taxa de Transferência</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>R$ ${formatarMoeda(f.credito)}</td>
+                            <td>R$ ${formatarMoeda(f.entrada)}</td>
+                            <td>${f.prazo}</td>
+                            <td>R$ ${formatarMoeda(f.parcela)}</td>
+                            <td>R$ ${formatarMoeda(f.taxa)}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="liquido-label">
+                    *Valor liquido para utilizar R$
+                    <input type="text" class="net-value-input" value="${formatarMoeda(f.liquido)}" onchange="atualizarLiquido(${index}, this.value)">
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        document.getElementById('totalCredit').innerText = "R$ " + formatarMoeda(somaCredito);
+        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(somaParcelas);
+        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(somaTaxas);
+    }
+
+    function atualizarLiquido(index, valor) {
+        const num = parseFloat(valor.replace(/\./g, '').replace(',', '.'));
+        if (!isNaN(num)) { fases[index].liquido = num; }
+        renderizarFases();
+    }
+
+    function resetar() { location.reload(); }
+</script>
+
+</body>
+</html>
