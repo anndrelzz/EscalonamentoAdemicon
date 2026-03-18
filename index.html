@@ -5,28 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Alavancagem - Ademicon Joinville</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ff3333'%3E%3Cpath d='M16,6V4H8V6H2V8H4V20H20V8H22V6H16M10,6H14V6H10V6M18,18H6V8H18V18M15,10H17V12H15V10M15,13H17V15H15V13M12,10H14V12H12V10M12,13H14V15H12V13M9,10H11V12H9V10M9,13H11V15H9V13M12,16H17V17H12V16Z'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="assets/logo-fundo.svg">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        html, body { height: 100%; }
+
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             background: linear-gradient(135deg, #000000 0%, #330000 100%);
             background-attachment: fixed;
             color: #eee;
-            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
             padding: 15px;
         }
 
         .main-container {
             max-width: 1000px;
-            margin: auto;
+            width: 100%;
+            margin: 0 auto;
             background-color: rgba(20, 20, 20, 0.85);
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
             border: 1px solid #440000;
+            flex: 1 0 auto;
         }
 
         .header {
@@ -39,8 +44,8 @@
         }
 
         .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-icon { width: 40px; height: 40px; fill: #ff3333; }
-        .logo-text { font-weight: bold; font-size: 1.4em; color: #fff; letter-spacing: 1px; }
+        .logo-img { height: 40px; width: auto; display: block; }
+        .logo-text { font-weight: bold; font-size: 1.6em; color: #fff; letter-spacing: 1px; }
         .sub-text { color: #ccc; font-size: 0.8em; text-transform: uppercase; font-weight: bold; }
 
         h1.main-title {
@@ -65,13 +70,7 @@
         th { background: #2a2a2a; color: #fff; font-size: 0.75em; text-transform: uppercase; padding: 10px; text-align: left; border: 1px solid #444; }
         td { padding: 12px 10px; border: 1px solid #333; font-size: 1em; }
 
-        .liquido-container {
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
+        .liquido-container { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; }
         .liquido-label { font-size: 0.95em; color: #eee; }
 
         .net-value-input { 
@@ -100,7 +99,8 @@
         input[type="number"] { width: 100%; padding: 10px; background: #111; border: 1px solid #444; border-radius: 6px; color: #fff; }
 
         .summary-card { background: linear-gradient(180deg, #222 0%, #111 100%); border: 2px solid #880000; padding: 20px; border-radius: 10px; margin-top: 20px; }
-        .summary-card h3 { color: #ff3333; margin-bottom: 10px; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        .summary-card h3 { color: #ff3333; margin-bottom: 5px; border-bottom: 1px solid #444; padding-bottom: 5px; }
+        .summary-info-text { font-size: 0.85em; color: #aaa; margin-bottom: 15px; }
         .summary-flex { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
         .summary-item { flex: 1; min-width: 150px; }
         .summary-item label { font-size: 0.85em; color: #aaa; display: block; margin-bottom: 4px; }
@@ -110,52 +110,50 @@
         .btn-primary { background: #cc0000; color: #fff; }
         .btn-add { background: #28a745; color: white; }
         .btn-remove { background: #666; color: white; margin-left: 5px; }
-        .btn-outline { background: transparent; border: 1px solid #555; color: #ccc; margin-top: 15px; }
 
         .hidden { display: none !important; }
-        .footer-pdf { display: none; }
+
+        .footer-pdf {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 1000px;
+            margin: 40px auto 10px;
+            text-align: right;
+            padding: 0 25px;
+        }
 
         @media print {
-            @page { size: A4; margin: 1cm 1cm 4.5cm 1cm; }
-            body { background: white; color: black; padding: 0; font-size: 10pt; }
-            .main-container { max-width: 100%; border: none; box-shadow: none; background: white; padding: 0; }
-            .no-print, .btn, .input-section { display: none !important; }
-            .header { border-bottom: 2px solid #000; color: black; margin-bottom: 10px; }
-            .logo-icon { fill: black; height: 35px; width: 35px; }
-            .logo-text, .sub-text, h1.main-title { color: black !important; }
-
-            .fase-card { background: white; border: none; border-bottom: 1px solid #ccc; padding: 5px 0; margin-bottom: 5px; page-break-inside: avoid; }
-            .fase-title { color: black !important; font-size: 1em; }
-            table { border: 1px solid black; }
-            th { background: #f0f0f0 !important; color: black !important; border: 1px solid black; font-weight: bold; padding: 5px; font-size: 9pt; }
-            td { border: 1px solid black; color: black; }
+            @page { size: A4; margin: 1.5cm; }
+            body { background: white !important; color: #990000 !important; padding: 0; display: flex; flex-direction: column; height: 100%; }
             
-            .liquido-label { color: black !important; font-weight: bold; font-size: 9pt; }
-            .net-value-input { 
-                border: 1px solid #000; 
-                background: #f9f9f9; 
-                color: #000 !important; 
-                text-align: right; 
-                width: 100%; 
-                font-size: 10pt; 
-                padding: 3px 8px; 
-                font-weight: 900 !important;
-            }
+            .main-container { max-width: 100%; border: none; box-shadow: none; background: white !important; padding: 0; flex: 1 0 auto; display: block; color: #990000 !important; }
+            
+            .no-print, .btn, .input-section { display: none !important; }
+            .header { border-bottom: 2px solid #000; margin-bottom: 10px; }
+            .logo-img { filter: grayscale(1) brightness(0); height: 35px; }
+            
+            .logo-text, .sub-text, h1.main-title, .fase-title, .summary-card h3, th, .liquido-label, label { color: #990000 !important; }
+            
+            /* REGRA PARA A FRASE ESPECÍFICA NO PDF */
+            .summary-info-text { color: #000 !important; font-weight: bold; }
 
-            .summary-card { border: 1px solid black; background: white; color: black; margin-top: 15px; padding: 10px; page-break-inside: avoid; }
-            .summary-card h3 { font-size: 1.1em; border-bottom: 1px solid #000; }
-            .summary-item span { color: black !important; font-size: 1.2em; }
-            .summary-item label { color: #555 !important; font-size: 9pt; }
+            .fase-card { background: white !important; border: none; border-bottom: 1px solid #ccc; padding: 10px 0; margin-bottom: 5px; page-break-inside: avoid; }
+            table { border: 1px solid black; width: 100%; }
+            th { background: #f0f0f0 !important; border: 1px solid black; padding: 5px; }
+            
+            td { border: 1px solid black; color: #000 !important; padding: 5px; font-weight: bold; }
+            
+            .net-value-input { border: 1px solid #000; background: #f9f9f9 !important; color: #000 !important; text-align: right; width: 100%; font-weight: 900 !important; }
 
-            .footer-pdf { 
-                display: block; position: fixed; bottom: 0; left: 0; width: 100%; background: white; 
-                text-align: right; padding-bottom: 30px; 
-            }
+            .summary-card { border: 1px solid black; background: white !important; margin-top: 15px; padding: 10px; page-break-inside: avoid; }
+            
+            .summary-item span { color: #000 !important; }
+
+            .footer-pdf { display: block !important; margin-top: auto; padding-top: 50px; background: white !important; }
             .footer-line { border-top: 2px solid #cc0000; width: 100%; margin-bottom: 10px; }
-            .manager-container { border-right: 3px solid #cc0000; padding-right: 15px; display: inline-block; }
-            .manager-name { font-weight: bold; font-size: 11pt; color: #000; }
-            .manager-title, .manager-units, .manager-phone { font-weight: bold; font-size: 10pt; color: #000; margin-top: 2px; }
-            .manager-email { color: #0056b3; text-decoration: underline; font-size: 9pt; margin-top: 2px; }
+            .manager-container { border-right: 3px solid #cc0000; padding-right: 15px; display: inline-block; color: #990000 !important; }
+            .manager-name { font-weight: bold; color: #000 !important; }
+            .manager-email { color: #0056b3 !important; }
         }
     </style>
 </head>
@@ -164,7 +162,7 @@
 <div class="main-container">
     <div class="header">
         <div class="logo-area">
-            <svg class="logo-icon" viewBox="0 0 24 24"><path d="M16,6V4H8V6H2V8H4V20H20V8H22V6H16M10,6H14V6H10V6M18,18H6V8H18V18M15,10H17V12H15V10M15,13H17V15H15V13M12,10H14V12H12V10M12,13H14V15H12V13M9,10H11V12H9V10M9,13H11V15H9V13M12,16H17V17H12V16Z" /></svg>
+            <img class="logo-img" src="assets/logo-fundo.svg" alt="Logo">
             <span class="logo-text">ADEMICON</span>
         </div>
         <div class="sub-text">Joinville - Simulação Financeira</div>
@@ -186,7 +184,6 @@
 
     <div id="dashboard" class="content-layout hidden">
         <div id="fasesContainer"></div>
-        
         <div class="input-section no-print">
             <input type="number" id="manualCredit" placeholder="Próximo Crédito (Ex: 1400000)" style="flex: 1; padding: 10px; background: #111; color: #fff; border: 1px solid #444; border-radius: 6px;">
             <button class="btn btn-add" onclick="adicionarFaseManual()">+ Incluir Fase</button>
@@ -195,40 +192,40 @@
 
         <div class="summary-card">
             <h3>RESUMO DA OPERAÇÃO</h3>
-            <p style="font-size: 0.75em; margin-bottom: 10px; color: #aaa;">C.F. por tranche 1% a.m. + INCC a.a</p>
+            <div class="summary-info-text">C.F. por tranche 1% a.m. + INCC a.a</div>
             <div class="summary-flex">
                 <div class="summary-item"><label>Créditos Líquido:</label><span id="totalCredit">R$ 0,00</span></div>
-                <div class="summary-item"><label>Valor da Parcela:</label><span id="totalInstallment" style="color: #ff3333;">R$ 0,00</span></div>
+                <div class="summary-item"><label>Valor da Parcela:</label><span id="totalInstallment">R$ 0,00</span></div>
                 <div class="summary-item"><label>Total de Taxas:</label><span id="totalFees">R$ 0,00</span></div>
                 <div class="no-print"><button class="btn btn-primary" onclick="window.print()">Imprimir PDF</button></div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="footer-pdf">
-            <div class="footer-line"></div>
-            <div class="manager-container">
-                <div class="manager-name">Anderson L. Marini</div>
-                <div class="manager-title">Sócio gerente</div>
-                <div class="manager-units">Unidade Joinville - América | Unidade SP - Jardins</div>
-                <div class="manager-phone">(41) 98802-8545</div>
-                <div class="manager-email">anderson.marini@licenciadoademicon.com.br</div>
-            </div>
-        </div>
+<div class="footer-pdf hidden" id="footerAssinatura">
+    <div class="footer-line"></div>
+    <div class="manager-container">
+        <div class="manager-name">Anderson L. Marini</div>
+        <div class="manager-title">Sócio gerente</div>
+        <div class="manager-units">Unidade Joinville - América | Unidade SP - Jardins</div>
+        <div class="manager-phone">(41) 98802-8545</div>
+        <div class="manager-email">anderson.marini@licenciadoademicon.com.br</div>
     </div>
 </div>
 
 <script>
     let fases = [];
     const taxaJuros = 0.01; const percentualTaxa = 0.0075;
-    function formatarMoeda(valor) { return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+    function formatarMoeda(v) { return v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
     function calcularPMT(pv, n, i) { return pv > 0 ? pv * (i / (1 - Math.pow(1 + i, -n))) : 0; }
     
     function iniciarSimulacao() {
         fases = [];
-        const credito = parseFloat(document.getElementById('initCredit').value);
-        adicionarFaseDados(credito, parseInt(document.getElementById('initTerm').value));
+        adicionarFaseDados(parseFloat(document.getElementById('initCredit').value), parseInt(document.getElementById('initTerm').value));
         document.getElementById('dashboard').classList.remove('hidden');
         document.getElementById('setupSection').classList.add('hidden');
+        document.getElementById('footerAssinatura').classList.remove('hidden');
     }
 
     function adicionarFaseManual() {
@@ -246,33 +243,28 @@
 
     function renderizarFases() {
         const container = document.getElementById('fasesContainer'); container.innerHTML = '';
-        let somaLiquidoResumo = 0, somaParcelas = 0, somaTaxas = 0;
-
-        fases.forEach((f, index) => {
-            somaLiquidoResumo += f.liquido; somaParcelas += f.parcela; somaTaxas += f.taxa;
+        let sParc = 0, sTax = 0;
+        fases.forEach((f, i) => {
+            sParc += f.parcela; sTax += f.taxa;
             const card = document.createElement('div'); card.className = 'fase-card';
             card.innerHTML = `<div class="fase-title">${f.numero}°Fase</div>
                 <table><thead><tr><th>Créditos</th><th>Entrada</th><th>Prazo</th><th>Parcela</th><th>Taxa Transf.</th></tr></thead>
                 <tbody><tr><td>R$ ${formatarMoeda(f.credito)}</td><td>R$ ${formatarMoeda(f.entrada)}</td><td>${f.prazo}</td><td>R$ ${formatarMoeda(f.parcela)}</td><td>R$ ${formatarMoeda(f.taxa)}</td></tr></tbody></table>
                 <div class="liquido-container">
                     <span class="liquido-label">*Valor liquido para utilizar R$</span>
-                    <input type="text" class="net-value-input" value="${formatarMoeda(f.liquido)}" onchange="atualizarLiquido(${index}, this.value)">
+                    <input type="text" class="net-value-input" value="${formatarMoeda(f.liquido)}" onchange="atualizarLiquido(${i}, this.value)">
                 </div>`;
             container.appendChild(card);
         });
-
-        document.getElementById('totalCredit').innerText = "R$ " + formatarMoeda(somaLiquidoResumo);
-        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(somaParcelas);
-        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(somaTaxas);
+        document.getElementById('totalCredit').innerText = "R$ " + formatarMoeda(fases[fases.length - 1].liquido);
+        document.getElementById('totalInstallment').innerText = "R$ " + formatarMoeda(sParc);
+        document.getElementById('totalFees').innerText = "R$ " + formatarMoeda(sTax);
     }
 
-    function atualizarLiquido(index, valor) {
-        const num = parseFloat(valor.replace(/\./g, '').replace(',', '.'));
-        if (!isNaN(num)) { fases[index].liquido = num; }
-        renderizarFases();
+    function atualizarLiquido(idx, val) {
+        const n = parseFloat(val.replace(/\./g, '').replace(',', '.'));
+        if (!isNaN(n)) { fases[idx].liquido = n; renderizarFases(); }
     }
-
-    function resetar() { location.reload(); }
 </script>
 </body>
 </html>
